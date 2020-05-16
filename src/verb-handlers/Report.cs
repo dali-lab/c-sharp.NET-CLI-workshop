@@ -7,6 +7,16 @@ namespace kronos {
             // read in tracking file
             TimeTrackingFile timeTracking = TimeTrackingFile.toObject(File.ReadAllText(Program.TRACKING_FILE_PATH));
 
+            if (timeTracking == null) {
+                // write out error message
+                ConsoleColor userDefaultColor = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: Encountered error generating kronos time");
+                Console.WriteLine("Open " + Program.TRACKING_FILE_PATH + " to view all times");
+                Console.WriteLine("Run kronos clean to fix and reset (note you will lose all previously logged times");
+                Console.ForegroundColor = userDefaultColor;
+            }
+
             // generate header
             Console.Write("\nKronos Report -- ");
             Console.WriteLine(options.All ? "all time" : "last 14 days");
@@ -15,10 +25,11 @@ namespace kronos {
             if (timeTracking.currentTracking != null) {
                 Console.WriteLine();
                 Console.WriteLine("In progress work session:");
+
                 Console.WriteLine("    Start time: " + 
                     timeTracking.currentTracking.startTime.ToLongDateString() + ", " + 
                     timeTracking.currentTracking.startTime.ToLongTimeString() + 
-                    (timeTracking.currentTracking.message.Length > 0 ? ", \n    " + timeTracking.currentTracking.message : ""));
+                    (timeTracking.currentTracking.message != null && timeTracking.currentTracking.message.Length > 0 ? ", \n    " + timeTracking.currentTracking.message : ""));
             }
 
             Console.WriteLine("\nPast work sessions:");

@@ -8,6 +8,16 @@ namespace kronos {
             // read in tracking file
             TimeTrackingFile timeTracking = TimeTrackingFile.toObject(File.ReadAllText(Program.TRACKING_FILE_PATH));
 
+            if (timeTracking == null) {
+                // write out error message
+                ConsoleColor userDefaultColor = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: Encountered error generating kronos time");
+                Console.WriteLine("Open " + Program.TRACKING_FILE_PATH + " to view all times");
+                Console.WriteLine("Run kronos clean to fix and reset (note you will lose all previously logged times");
+                Console.ForegroundColor = userDefaultColor;
+            }
+
             if (options.Stop || options.Close || options.Done) {
                 // if not currently tracking anything, send error
                 if (timeTracking.currentTracking == null) {
