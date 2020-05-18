@@ -8,12 +8,23 @@ namespace kronos {
         public TimeTrackingInstance currentTracking;
         public List<TimeTrackingInstance> previousTimes;
 
-        public static void SaveToFile(String json) {
+        public class TimeTrackingInstance {
+            public DateTime startTime;
+            public DateTime endTime;
+            public Double totalHours;
+            public String message;
+        }
+
+         public static void SaveToFile(String json) {
             File.WriteAllText(Program.TRACKING_FILE_PATH, json);
         }
 
         public static void SaveToFile(TimeTrackingFile obj) {
             SaveToFile(toJSON(obj));
+        }
+
+        public void SaveToFile() {
+            SaveToFile(toJSON(this));
         }
 
         public static TimeTrackingFile toObject(String json) {
@@ -34,13 +45,6 @@ namespace kronos {
             t.previousTimes = new List<TimeTrackingFile.TimeTrackingInstance>();
 
             return TimeTrackingFile.toJSON(t);
-        }
-
-        public class TimeTrackingInstance {
-            public DateTime startTime;
-            public DateTime endTime;
-            public Double totalHours;
-            public String message;
         }
     }   
 }

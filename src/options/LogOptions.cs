@@ -5,13 +5,13 @@ namespace kronos {
     [Verb("log", HelpText = "Log basic kronos time")]
     public class LogOptions {
 
-          [Option("stop", Default = false, HelpText = "Stop logging time (call at end of work session)")]
-          public bool Stop { get; set; }
+          [Option("start", Default = "", HelpText = "Start time of work session")]
+          public string Start { get; set; }
 
-          [Option("close", Default = false, HelpText = "Stop logging time (call at end of work session)")]
-          public bool Close { get; set; }
+          [Option("stop", Default = "", HelpText = "End time of work session")]
+          public string Stop { get; set; }
 
-          [Option("done", Default = false, HelpText = "Stop logging time (call at end of work session)")]
-          public bool Done { get; set; }
+          [Option('m', "message", Default = "", HelpText = "Message for work session")]
+          public string Message { get; set; }
     }
 }

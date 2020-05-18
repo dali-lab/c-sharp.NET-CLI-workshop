@@ -2,7 +2,7 @@ using System;
 using System.IO;
 
 namespace kronos {
-    public class Clean {
+    public class CleanHandler {
         public static int Run(CleanOptions options) {
             bool proceed = options.Force;
 

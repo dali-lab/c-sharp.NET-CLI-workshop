@@ -1,8 +1,9 @@
 using System;
 using System.IO;
+using System.Collections.Generic;
 
 namespace kronos {
-    public class Report {
+    public class ReportHandler {
         public static int Run(ReportOptions options) {
             // read in tracking file
             TimeTrackingFile timeTracking = TimeTrackingFile.toObject(File.ReadAllText(Program.TRACKING_FILE_PATH));
@@ -15,6 +16,8 @@ namespace kronos {
                 Console.WriteLine("Open " + Program.TRACKING_FILE_PATH + " to view all times");
                 Console.WriteLine("Run kronos clean to fix and reset (note you will lose all previously logged times");
                 Console.ForegroundColor = userDefaultColor;
+
+                return 1;
             }
 
             // generate header
@@ -32,6 +35,13 @@ namespace kronos {
                     (timeTracking.currentTracking.message != null && timeTracking.currentTracking.message.Length > 0 ? ", \n    " + timeTracking.currentTracking.message : ""));
             }
 
+            // sort by start time
+            var arrayCast = timeTracking.previousTimes.ToArray();
+            Array.Sort(arrayCast,
+                delegate(TimeTrackingFile.TimeTrackingInstance x, TimeTrackingFile.TimeTrackingInstance y) { return x.startTime.CompareTo(y.startTime); });
+            timeTracking.previousTimes = new List<TimeTrackingFile.TimeTrackingInstance>(arrayCast);
+
+            // set header and current date we're looping through
             Console.WriteLine("\nPast work sessions:");
             DateTime currentDate = default(DateTime);
 

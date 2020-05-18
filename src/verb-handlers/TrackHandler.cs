@@ -3,7 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 
 namespace kronos {
-    public class Track {
+    public class TrackHandler {
         public static int Run(TrackOptions options, string[] args) {
            // Create a new FileSystemWatcher and set its properties.
             using (FileSystemWatcher watcher = new FileSystemWatcher())
@@ -20,7 +20,7 @@ namespace kronos {
                     // write out error message
                     ConsoleColor userDefaultColor = Console.ForegroundColor;
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error: No file or directory path provided");
+                    Console.WriteLine("Error: No file or directory path provided.");
                     Console.ForegroundColor = userDefaultColor;
 
                     return 1;
@@ -30,7 +30,7 @@ namespace kronos {
                     // write out error message
                     ConsoleColor userDefaultColor = Console.ForegroundColor;
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error: Provided directory/file path does not exist");
+                    Console.WriteLine("Error: Provided directory/file path does not exist.");
                     Console.ForegroundColor = userDefaultColor;
 
                     return 2;
