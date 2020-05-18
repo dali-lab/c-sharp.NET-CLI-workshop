@@ -2,7 +2,7 @@ using CommandLine;
 
 namespace kronos {
 
-    [Verb("log", HelpText = "Log basic kronos time")]
+    [Verb("log", HelpText = "Log previous work session")]
     public class LogOptions {
 
           [Option("start", Default = "", HelpText = "Start time of work session")]
